@@ -12,6 +12,7 @@ list1 со списком выпавших чисел list2
 """
 
 import logging
+import argparse
 
 logging.basicConfig(filename='lottery.log',
                     encoding='utf-8',
@@ -47,7 +48,20 @@ class LotteryGame:
 if __name__ == "__main__":
     # users_numbers = [2, 54, 64, 7, 15]
     # draws_numbers = [14, 22, 17, 41, 8, 3, 18]
-    users_numbers = [22, 17, 64, 8, 15]
-    draws_numbers = [14, 22, 17, 41, 8, 3, 18]
-    game = LotteryGame(users_numbers, draws_numbers)
+    # users_numbers = [22, 17, 64, 8, 15]
+    # draws_numbers = [14, 22, 17, 41, 8, 3, 18]
+    # game = LotteryGame(users_numbers, draws_numbers)
+    # game.compare_lists()
+    def list_of_ints(arg):
+        return list(map(int, arg.split(',')))
+
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--users_numbers', type=list_of_ints)
+    parser.add_argument('--draws_numbers', type=list_of_ints)
+    '''
+    Указываем аргументы в виде: --users_numbers=2,14,48,75,16 --draws_number=14,15,16
+    '''
+    args = parser.parse_args()
+    game = LotteryGame(args.users_numbers, args.draws_numbers)
     game.compare_lists()
